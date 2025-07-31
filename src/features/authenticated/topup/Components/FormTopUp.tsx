@@ -66,7 +66,7 @@ const FormTopUp = () => {
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-        {({ errors, values, setFieldValue, isSubmitting }) => (
+        {({ errors, values, setFieldValue, isSubmitting, touched, setFieldTouched }) => (
           <Form>
             <div className="grid lg:grid-cols-2 gap-5">
 
@@ -79,9 +79,10 @@ const FormTopUp = () => {
                     />
                     <Input
                       value={values.top_up_amount || ""}
-                      className="pl-8 py-2"
+                      className={`pl-8 py-2 ${errors.top_up_amount && touched.top_up_amount ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       type="number"
                       onChange={(e) => setFieldValue("top_up_amount", parseInt(e.target.value) || 0)}
+                      onBlur={() => setFieldTouched("top_up_amount", true)}
                       placeholder="Masukkan nominal top up..."
                     />
                   </div>

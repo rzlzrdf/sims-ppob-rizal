@@ -72,6 +72,13 @@ const authSlice = createSlice({
           authUtils.setUser(payload.data)
         }
       )
+      .addMatcher(
+        authApi.endpoints.updateProfile.matchFulfilled,
+        (state, { payload }) => {
+          state.user = payload.data
+          authUtils.setUser(payload.data)
+        }
+      )
   },
 })
 

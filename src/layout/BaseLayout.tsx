@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { Eye, LogOut, History } from "lucide-react";
+import { Eye, LogOut } from "lucide-react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { clearCredentials } from "@/store/authSlice";
 import { toast } from "sonner";
@@ -77,7 +77,7 @@ const BaseLayout = ({ children }: Props) => {
     <div className="w-full min-h-screen">
       <Header />
       <div className="m-auto mt-5 px-5 lg:px-[10vw]">
-        <div className="grid grid-cols-2">
+        <div className="grid lg:grid-cols-2 gap-5">
           <div className="space-y-1.5">
             <img
               src={ "/assets/profile.png"}

@@ -49,7 +49,7 @@ const FormLogin = () => {
   return (
     <div className="mt-4">
       <Formik initialValues={initialValue} onSubmit={handleSubmit}>
-        {({ errors, values, setFieldValue }) => (
+        {({ errors, values, setFieldValue, touched, setFieldTouched }) => (
           <Form>
             <div className="space-y-5">
               <div className="space-y-3">
@@ -61,8 +61,9 @@ const FormLogin = () => {
                   />
                   <Input
                     value={values.email}
-                    className="pl-8"
+                    className={`pl-8 ${errors.email && touched.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                     onChange={(e) => setFieldValue("email", e.target.value)}
+                    onBlur={() => setFieldTouched("email", true)}
                     placeholder="Masukkan Email..."
                   />
                 </div>
@@ -77,9 +78,10 @@ const FormLogin = () => {
                   />
                   <Input
                     type={see ? "text" : "password"}
-                    className="pl-8"
+                    className={`pl-8 ${errors.password && touched.password ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                     value={values.password}
                     onChange={(e) => setFieldValue("password", e.target.value)}
+                    onBlur={() => setFieldTouched("password", true)}
                     placeholder="Masukkan Password..."
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2">

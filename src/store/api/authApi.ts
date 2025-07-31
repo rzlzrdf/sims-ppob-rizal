@@ -48,6 +48,17 @@ interface ProfileResponse {
   data: UserProfile
 }
 
+interface UpdateProfileRequest {
+  first_name: string
+  last_name: string
+}
+
+interface UpdateProfileResponse {
+  status: number
+  message: string
+  data: UserProfile
+}
+
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
@@ -67,6 +78,7 @@ export const authApi = createApi({
       return data
     },
   }),
+  tagTypes: ['Profile'],
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
@@ -90,8 +102,17 @@ export const authApi = createApi({
     }),
     getProfile: builder.query<ProfileResponse, void>({
       query: () => '/profile',
+      providesTags: ['Profile'],
+    }),
+    updateProfile: builder.mutation<UpdateProfileResponse, UpdateProfileRequest>({
+      query: (data) => ({
+        url: '/profile/update',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Profile'],
     }),
   }),
 })
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useGetProfileQuery } = authApi
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useGetProfileQuery, useUpdateProfileMutation } = authApi
