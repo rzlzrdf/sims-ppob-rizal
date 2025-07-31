@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedTransactionIndexRouteImport } from './routes/_authenticated/transaction/index'
+import { Route as AuthenticatedTopupIndexRouteImport } from './routes/_authenticated/topup/index'
+import { Route as AuthenticatedPaymentIndexRouteImport } from './routes/_authenticated/payment/index'
+import { Route as AuthenticatedListrikIndexRouteImport } from './routes/_authenticated/listrik/index'
+import { Route as AuthenticatedAkunIndexRouteImport } from './routes/_authenticated/akun/index'
 import { Route as authRegisterIndexRouteImport } from './routes/(auth)/register/index'
 import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
 
@@ -26,6 +31,34 @@ const authRouteRoute = authRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTransactionIndexRoute =
+  AuthenticatedTransactionIndexRouteImport.update({
+    id: '/transaction/',
+    path: '/transaction/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTopupIndexRoute = AuthenticatedTopupIndexRouteImport.update({
+  id: '/topup/',
+  path: '/topup/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPaymentIndexRoute =
+  AuthenticatedPaymentIndexRouteImport.update({
+    id: '/payment/',
+    path: '/payment/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedListrikIndexRoute =
+  AuthenticatedListrikIndexRouteImport.update({
+    id: '/listrik/',
+    path: '/listrik/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAkunIndexRoute = AuthenticatedAkunIndexRouteImport.update({
+  id: '/akun/',
+  path: '/akun/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const authRegisterIndexRoute = authRegisterIndexRouteImport.update({
@@ -43,11 +76,21 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof authLoginIndexRoute
   '/register': typeof authRegisterIndexRoute
+  '/akun': typeof AuthenticatedAkunIndexRoute
+  '/listrik': typeof AuthenticatedListrikIndexRoute
+  '/payment': typeof AuthenticatedPaymentIndexRoute
+  '/topup': typeof AuthenticatedTopupIndexRoute
+  '/transaction': typeof AuthenticatedTransactionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof authLoginIndexRoute
   '/register': typeof authRegisterIndexRoute
+  '/akun': typeof AuthenticatedAkunIndexRoute
+  '/listrik': typeof AuthenticatedListrikIndexRoute
+  '/payment': typeof AuthenticatedPaymentIndexRoute
+  '/topup': typeof AuthenticatedTopupIndexRoute
+  '/transaction': typeof AuthenticatedTransactionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -56,12 +99,33 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/(auth)/login/': typeof authLoginIndexRoute
   '/(auth)/register/': typeof authRegisterIndexRoute
+  '/_authenticated/akun/': typeof AuthenticatedAkunIndexRoute
+  '/_authenticated/listrik/': typeof AuthenticatedListrikIndexRoute
+  '/_authenticated/payment/': typeof AuthenticatedPaymentIndexRoute
+  '/_authenticated/topup/': typeof AuthenticatedTopupIndexRoute
+  '/_authenticated/transaction/': typeof AuthenticatedTransactionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/akun'
+    | '/listrik'
+    | '/payment'
+    | '/topup'
+    | '/transaction'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/akun'
+    | '/listrik'
+    | '/payment'
+    | '/topup'
+    | '/transaction'
   id:
     | '__root__'
     | '/(auth)'
@@ -69,6 +133,11 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/(auth)/login/'
     | '/(auth)/register/'
+    | '/_authenticated/akun/'
+    | '/_authenticated/listrik/'
+    | '/_authenticated/payment/'
+    | '/_authenticated/topup/'
+    | '/_authenticated/transaction/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -97,6 +166,41 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/transaction/': {
+      id: '/_authenticated/transaction/'
+      path: '/transaction'
+      fullPath: '/transaction'
+      preLoaderRoute: typeof AuthenticatedTransactionIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/topup/': {
+      id: '/_authenticated/topup/'
+      path: '/topup'
+      fullPath: '/topup'
+      preLoaderRoute: typeof AuthenticatedTopupIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/payment/': {
+      id: '/_authenticated/payment/'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof AuthenticatedPaymentIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/listrik/': {
+      id: '/_authenticated/listrik/'
+      path: '/listrik'
+      fullPath: '/listrik'
+      preLoaderRoute: typeof AuthenticatedListrikIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/akun/': {
+      id: '/_authenticated/akun/'
+      path: '/akun'
+      fullPath: '/akun'
+      preLoaderRoute: typeof AuthenticatedAkunIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/(auth)/register/': {
@@ -132,10 +236,20 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAkunIndexRoute: typeof AuthenticatedAkunIndexRoute
+  AuthenticatedListrikIndexRoute: typeof AuthenticatedListrikIndexRoute
+  AuthenticatedPaymentIndexRoute: typeof AuthenticatedPaymentIndexRoute
+  AuthenticatedTopupIndexRoute: typeof AuthenticatedTopupIndexRoute
+  AuthenticatedTransactionIndexRoute: typeof AuthenticatedTransactionIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAkunIndexRoute: AuthenticatedAkunIndexRoute,
+  AuthenticatedListrikIndexRoute: AuthenticatedListrikIndexRoute,
+  AuthenticatedPaymentIndexRoute: AuthenticatedPaymentIndexRoute,
+  AuthenticatedTopupIndexRoute: AuthenticatedTopupIndexRoute,
+  AuthenticatedTransactionIndexRoute: AuthenticatedTransactionIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

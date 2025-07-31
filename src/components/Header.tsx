@@ -11,13 +11,13 @@ export default function Header() {
           </div>
         </Link>
         <div className="w-1/2 flex justify-end gap-5 items-center">
-          <Link to="/" className="hover:text-red-500 duration-300">
+          <Link to="/topup" className="hover:text-red-500 duration-300">
             <p className="font-semibold">Top Up</p>
           </Link>
-          <Link to="/" className="hover:text-red-500 duration-300">
+          <Link to="/transaction" className="hover:text-red-500 duration-300">
             <p className="font-semibold">Transaction</p>
           </Link>
-          <Link to="/" className="hover:text-red-500 duration-300">
+          <Link to="/akun" className="hover:text-red-500 duration-300">
             <p className="font-semibold">Account</p>
           </Link>
         </div>

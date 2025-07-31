@@ -1,12 +1,13 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { Eye, LogOut } from "lucide-react";
+import { Eye, LogOut, History } from "lucide-react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { clearCredentials } from "@/store/authSlice";
 import { toast } from "sonner";
 import { useGetProfileQuery } from "@/store/api/authApi";
-import { useEffect } from "react";
+import { useGetBalanceQuery } from "@/store/api/balanceApi";
+import { useEffect, useState } from "react";
 
 interface Props {
   children?: React.ReactNode;
@@ -17,10 +18,16 @@ const BaseLayout = ({ children }: Props) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
+  const [showBalance, setShowBalance] = useState(false);
   
   // Always fetch profile if we have a token but no user data
   const { data: profileData, isLoading } = useGetProfileQuery(undefined, {
     skip: !token || !!user,
+  });
+  
+  // Fetch balance data
+  const { data: balanceData } = useGetBalanceQuery(undefined, {
+    skip: !token,
   });
 
   // This ensures profile is fetched on first load if needed
@@ -39,6 +46,14 @@ const BaseLayout = ({ children }: Props) => {
   const displayName = user?.first_name && user?.last_name 
     ? `${user.first_name} ${user.last_name}`
     : user?.email || "User";
+    
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+    }).format(amount);
+  };
 
   // Show loading skeleton while fetching user data
   if (isLoading && !user) {
@@ -80,11 +95,22 @@ const BaseLayout = ({ children }: Props) => {
           <div className="">
             <div className="bg-red-500 text-white p-5 rounded-xl space-y-2">
               <p className="pl-2  text-sm">Saldo Anda</p>
-              <h3 className=" pl-2 font-bold text-3xl">Rp. *********</h3>
-              <Button variant={"ghost"} size={"sm"} className="mt-2">
-                Lihat Saldo
-                <Eye />
-              </Button>
+              <h3 className=" pl-2 font-bold text-3xl">
+                {showBalance && balanceData
+                  ? formatCurrency(balanceData.data.balance)
+                  : "Rp •••••••••"}
+              </h3>
+              <div className="flex gap-2">
+                <Button 
+                  variant={"ghost"} 
+                  size={"sm"} 
+                  className="mt-2"
+                  onClick={() => setShowBalance(!showBalance)}
+                >
+                  {showBalance ? "Tutup Saldo" : "Lihat Saldo"}
+                  <Eye />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

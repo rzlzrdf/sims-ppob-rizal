@@ -80,6 +80,9 @@ importers:
       sonner:
         specifier: ^2.0.6
         version: 2.0.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      sweetalert2:
+        specifier: ^11.22.2
+        version: 11.22.2
       tailwind-merge:
         specifier: ^3.0.2
         version: 3.3.1
@@ -1954,6 +1957,9 @@ packages:
 
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
+
+  sweetalert2@11.22.2:
+    resolution: {integrity: sha512-GFQGzw8ZXF23PO79WMAYXLl4zYmLiaKqYJwcp5eBF07wiI5BYPbZtKi2pcvVmfUQK+FqL1risJAMxugcPbGIyg==}
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
@@ -3938,6 +3944,8 @@ snapshots:
   strip-literal@3.0.0:
     dependencies:
       js-tokens: 9.0.1
+
+  sweetalert2@11.22.2: {}
 
   symbol-tree@3.2.4: {}
 
