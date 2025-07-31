@@ -1,11 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { RootState } from '../index'
 
-interface ApiErrorResponse {
-  status: number
-  message: string
-  data: null
-}
 
 interface LoginRequest {
   email: string

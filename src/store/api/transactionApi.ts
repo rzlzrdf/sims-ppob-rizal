@@ -71,7 +71,7 @@ export const transactionApi = createApi({
       }),
       invalidatesTags: ['Transaction'],
       // After successful transaction, invalidate balance to refetch updated balance
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled
           // Invalidate balance cache to trigger refetch

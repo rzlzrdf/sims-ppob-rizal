@@ -11,7 +11,7 @@ export const useMenus = (filter?: (menu: MenuInterface) => boolean) => {
 
   const getMenuById = useMemo(() => {
     const menuMap = new Map(Menus.map(menu => [menu.id, menu]))
-    return (id: number) => menuMap.get(id)
+    return (id: string) => menuMap.get(id)
   }, [])
 
   const getMenuByLabel = useMemo(() => {

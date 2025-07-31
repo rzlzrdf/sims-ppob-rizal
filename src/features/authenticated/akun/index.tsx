@@ -1,4 +1,4 @@
-import FormEditProfile from "@/routes/(blank)/akun/components/FormEditProfile"
+import FormEditProfile from "../profile/components/FormEditProfile"
 
 const Index = () => {
   return (
